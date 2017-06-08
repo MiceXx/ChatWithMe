@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "214910572846",
+    "firebase_url": "https://chatwithme-8e2fe.firebaseio.com",
+    "project_id": "chatwithme-8e2fe",
+    "storage_bucket": "chatwithme-8e2fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214910572846:android:1902317029220408",
+        "android_client_info": {
+          "package_name": "com.accmxxgmail.chatwithme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214910572846-o2f6fn64dko829g32jbtl42g4j4v5kbg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.accmxxgmail.chatwithme",
+            "certificate_hash": "bfe10671529e6b16a2b4351173775957eacc2d88"
+          }
+        },
+        {
+          "client_id": "214910572846-o83tsds0o2nscl4asbaf68cmomrc7pgl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR5TJt9i68cY9oF_rZ1KuHWiYKqOaMHak"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214910572846-o83tsds0o2nscl4asbaf68cmomrc7pgl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
