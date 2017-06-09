@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,9 +26,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class UsersActivity extends AppCompatActivity {
+public class UsersActivity extends AppCompatActivity{
     ListView usersList;
     TextView noUsersText;
+    Button btnLogout;
+
     ArrayList<String> al = new ArrayList<>();
     int totalUsers = 0;
     ProgressDialog pd;
@@ -44,6 +47,7 @@ public class UsersActivity extends AppCompatActivity {
 
         usersList = (ListView)findViewById(R.id.usersList);
         noUsersText = (TextView)findViewById(R.id.noUsersText);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
 
         pd = new ProgressDialog(UsersActivity.this);
         pd.setMessage("Loading...");
@@ -71,6 +75,17 @@ public class UsersActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 UserDetails.chatWith = al.get(position);
                 startActivity(new Intent(UsersActivity.this, Chat.class));
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // Clear the session data
+                // This will clear all session data and
+                // redirect user to LoginActivity
+                session.logoutUser();
             }
         });
     }
@@ -108,4 +123,5 @@ public class UsersActivity extends AppCompatActivity {
 
         pd.dismiss();
     }
+
 }
