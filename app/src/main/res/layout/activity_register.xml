@@ -40,6 +40,8 @@
         <EditText android:id="@+id/editText_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"
             android:hint="Email" />
     </android.support.design.widget.TextInputLayout>
 
@@ -51,6 +53,8 @@
         <EditText android:id="@+id/editText_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:maxLines="1"
             android:hint="Username" />
     </android.support.design.widget.TextInputLayout>
 
@@ -62,6 +66,8 @@
         <EditText android:id="@+id/editText_create_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:maxLines="1"
             android:inputType="textPassword"
             android:hint="Password"/>
     </android.support.design.widget.TextInputLayout>
@@ -75,6 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
             android:hint="Re-Enter Password"/>
     </android.support.design.widget.TextInputLayout>
 

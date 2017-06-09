@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,9 +23,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText username, password;
+    EditText username, password, email, passwordConfirm;
     Button registerButton;
-    String user, pass;
+    String emailStr, usernameStr, passwordStr, passwordConfirmStr;
     TextView login;
 
     @Override
@@ -32,9 +33,10 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        email = (EditText) findViewById(R.id.editText_email);
         username = (EditText)findViewById(R.id.editText_username);
         password = (EditText)findViewById(R.id.editText_create_password);
-        password = (EditText)findViewById(R.id.editText_reenter_password);
+        passwordConfirm = (EditText)findViewById(R.id.editText_reenter_password);
         registerButton = (Button)findViewById(R.id.button_create_account);
         login = (TextView)findViewById(R.id.link_login);
 
@@ -43,30 +45,40 @@ public class RegisterActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
             }
         });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user = username.getText().toString();
-                pass = password.getText().toString();
 
-                if(user.equals("")){
+                emailStr = email.getText().toString();
+                usernameStr = username.getText().toString();
+                passwordStr = password.getText().toString();
+                passwordConfirmStr = passwordConfirm.getText().toString();
+
+                if(emailStr.equals("") ||
+                        !Patterns.EMAIL_ADDRESS.matcher(emailStr).matches()){
+                    email.setError("Please enter a valid email");
+                }
+                else if(usernameStr.equals("")){
                     username.setError("can't be blank");
                 }
-                else if(pass.equals("")){
+                else if(passwordStr.equals("")){
                     password.setError("can't be blank");
                 }
-                else if(!user.matches("[A-Za-z0-9]+")){
+                else if(!usernameStr.matches("[A-Za-z0-9]+")){
                     username.setError("only alphabet or number allowed");
                 }
-                else if(user.length()<5){
+                else if(usernameStr.length()<5){
                     username.setError("at least 5 characters long");
                 }
-                else if(pass.length()<5){
+                else if(passwordStr.length()<5){
                     password.setError("at least 5 characters long");
+                }
+                else if(passwordConfirmStr.equals(passwordStr)){
+                    passwordConfirm.setError("Passwords Must Match");
                 }
                 else {
                     final ProgressDialog pd = new ProgressDialog(RegisterActivity.this);
@@ -81,15 +93,15 @@ public class RegisterActivity extends AppCompatActivity {
                             Firebase reference = new Firebase("https://chatwithme-8e2fe.firebaseio.com/users");
 
                             if(s.equals("null")) {
-                                reference.child(user).child("password").setValue(pass);
+                                reference.child(usernameStr).child("password").setValue(passwordStr);
                                 Toast.makeText(RegisterActivity.this, "registration successful", Toast.LENGTH_LONG).show();
                             }
                             else {
                                 try {
                                     JSONObject obj = new JSONObject(s);
 
-                                    if (!obj.has(user)) {
-                                        reference.child(user).child("password").setValue(pass);
+                                    if (!obj.has(usernameStr)) {
+                                        reference.child(usernameStr).child("password").setValue(passwordStr);
                                         Toast.makeText(RegisterActivity.this, "registration successful", Toast.LENGTH_LONG).show();
                                     } else {
                                         Toast.makeText(RegisterActivity.this, "username already exists", Toast.LENGTH_LONG).show();
