@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                 else if(passwordStr.length()<5){
                     password.setError("at least 5 characters long");
                 }
-                else if(passwordConfirmStr.equals(passwordStr)){
+                else if(!passwordConfirmStr.equals(passwordStr)){
                     passwordConfirm.setError("Passwords Must Match");
                 }
                 else {
@@ -103,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     if (!obj.has(usernameStr)) {
                                         reference.child(usernameStr).child("password").setValue(passwordStr);
                                         Toast.makeText(RegisterActivity.this, "registration successful", Toast.LENGTH_LONG).show();
+                                        finish();
                                     } else {
                                         Toast.makeText(RegisterActivity.this, "username already exists", Toast.LENGTH_LONG).show();
                                     }

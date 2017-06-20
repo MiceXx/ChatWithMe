@@ -3,6 +3,7 @@ package com.accmxxgmail.chatwithme;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -37,7 +38,7 @@ public class Chat extends AppCompatActivity {
         scrollView = (ScrollView)findViewById(R.id.scrollView);
 
         Firebase.setAndroidContext(this);
-        reference1 = new Firebase("https://chatwithme-8e2fe.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
+        reference1 = new Firebase("https://chatwithme-8e2fe.irebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
         reference2 = new Firebase("https://chatwithme-8e2fe.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -62,11 +63,11 @@ public class Chat extends AppCompatActivity {
                 String message = map.get("message").toString();
                 String userName = map.get("user").toString();
 
-                if(userName.equals(UserDetails.username)){
-                    addMessageBox("You:-\n" + message, 1);
+                if(userName.equals(UserDetails.username)){ //YOUR MESSAGE
+                    addMessageBoxSelf("You:-\n" + message);
                 }
-                else{
-                    addMessageBox(UserDetails.chatWith + ":-\n" + message, 2);
+                else{ //THEIR MESSAGE
+                    addMessageBoxThem(UserDetails.chatWith + ":-\n" + message);
                 }
             }
 
@@ -92,7 +93,22 @@ public class Chat extends AppCompatActivity {
         });
     }
 
-    public void addMessageBox(String message, int type){
+    public void addMessageBoxSelf(String message){
+        TextView textView = new TextView(Chat.this);
+        textView.setText(message);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, 0, 0, 10);
+        textView.setLayoutParams(lp);
+        textView.setTextColor(Color.BLACK);
+        textView.setGravity(Gravity.RIGHT);
+
+        textView.setBackgroundResource(R.drawable.rounded_corner_blue);
+
+        layout.addView(textView);
+        messageArea.setText("");
+        scrollView.fullScroll(View.FOCUS_DOWN);
+    }
+    public void addMessageBoxThem(String message){
         TextView textView = new TextView(Chat.this);
         textView.setText(message);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -100,12 +116,7 @@ public class Chat extends AppCompatActivity {
         textView.setLayoutParams(lp);
         textView.setTextColor(Color.BLACK);
 
-        if(type == 1) {//YOU
-            textView.setBackgroundResource(R.drawable.rounded_corner_blue);
-        }
-        else{//THEM
-            textView.setBackgroundResource(R.drawable.rounded_corner_grey);
-        }
+        textView.setBackgroundResource(R.drawable.rounded_corner_grey);
 
         layout.addView(textView);
         messageArea.setText("");
